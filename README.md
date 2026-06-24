@@ -1,11 +1,20 @@
 # Awesome-Preference-Optimization-Algorithms
+<div align="center">
+  <img src="assets/banner.svg" alt="Banner" />
+  <br/>
+  <a href="https://github.com/ishandutta2007/Awesome-Awesome-Awesome"><img src="https://img.shields.io/badge/Awesome-%E2%9C%94-blueviolet?style=flat-square&logo=github" alt="Awesome"/></a>
+  <a href="https://discord.gg/jc4xtF58Ve"><img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" /></a>
+  <a href="https://github.com/ishandutta2007"><img alt="GitHub followers" src="https://img.shields.io/github/followers/ishandutta2007?label=Follow" /></a>
+</div>
+
+
 ## Preference Optimization Algorithms: Evolution, Variants, & Applications
 
 Preference Optimization Algorithms align Large Language Models (LLMs) with human values, safety guidelines, and task preferences (e.g., helpfulness, accuracy, and tone). Instead of training a model purely to predict the next token from raw data, preference optimization fine-tunes the model using feedback—often structured as comparisons between "chosen" (good) and "rejected" (bad) responses. This process shifts the model's output distribution toward desirable behaviors while suppressing hallucinations, toxic text, and unhelpful answers.
 
 ---
 
-## 1. The Chronological Evolution
+## 🕰️ 1. The Chronological Evolution
 
 The algorithmic progression of preference optimization reflects a transition from complex, multi-model reinforcement learning loops to simpler, direct loss formulations and stable non-referential objectives.
 
@@ -23,7 +32,7 @@ flowchart LR
 
 ---
 
-## 2. Data Structure & Feedback Variants
+## 📊 2. Data Structure & Feedback Variants
 
 Preference algorithms adapt based on how feedback is formatted, curated, and scored by human annotators or automated AI evaluators.
 
@@ -35,7 +44,7 @@ Preference algorithms adapt based on how feedback is formatted, curated, and sco
 
 ---
 
-## 3. Core Algorithmic Frameworks
+## 🧠 3. Core Algorithmic Frameworks
 
 | Algorithmic Framework | Details | Year | Paper Link |
 |---|---|---|---|
@@ -47,7 +56,7 @@ Preference algorithms adapt based on how feedback is formatted, curated, and sco
 
 ---
 
-## 4. Production & Downstream Applications
+## 🚀 4. Production & Downstream Applications
 
 | Application | Description | Year | Paper Link |
 |---|---|---|---|
