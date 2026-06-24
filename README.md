@@ -15,14 +15,11 @@ flowchart LR
     B ---> C["Reference-Free / Token-Level (KTO/ORPO, 2024+)<br/>(Single-Network Core Consolidation)"] 
 ```
 
-*   **The Reinforcement Learning Foundation (RLHF-PPO, ~2019–2023)**
-    *   *Concept:* Popularized by OpenAI (InstructGPT/GPT-4). Relies on training an explicit secondary Reward Model on human preferences, followed by optimizing the base LLM policy using Proximal Policy Optimization (PPO).
-    *   *Limitation:* Highly unstable to train and memory-intensive, requiring up to four active neural networks in VRAM concurrently.
-*   **The Direct Preference Era (DPO, ~2023–2024)**
-    *   *Concept:* Introduced by Rafailov et al. Mathematically proves that the loss function can be optimized directly on pairwise data without an explicit reward model. The language model itself acts implicitly as the reward engine.
-    *   *Significance:* Halved the training memory footprint and eliminated the unstable reinforcement learning actor-critic loop.
-*   **Modern Unified & Reference-Free Optimization (~2024–Present)**
-    *   *Concept:* Moves away from rigid pairwise dependencies. Frameworks like **KTO** optimize binary metrics (Thumbs Up/Down), while architectures like **ORPO** merge Supervised Fine-Tuning (SFT) and preference alignment into a single loss layer, removing the need for a separate reference network.
+| Evolution Stage | Details | Year | Paper Link |
+|---|---|---|---|
+| **The Reinforcement Learning Foundation (RLHF-PPO, ~2019–2023)** | *Concept:* Popularized by OpenAI (InstructGPT/GPT-4). Relies on training an explicit secondary Reward Model on human preferences, followed by optimizing the base LLM policy using Proximal Policy Optimization (PPO).<br>*Limitation:* Highly unstable to train and memory-intensive, requiring up to four active neural networks in VRAM concurrently. | 2019 | [Ziegler et al., 2019](https://arxiv.org/abs/1909.08593) |
+| **The Direct Preference Era (DPO, ~2023–2024)** | *Concept:* Introduced by Rafailov et al. Mathematically proves that the loss function can be optimized directly on pairwise data without an explicit reward model. The language model itself acts implicitly as the reward engine.<br>*Significance:* Halved the training memory footprint and eliminated the unstable reinforcement learning actor-critic loop. | 2023 | [Rafailov et al., 2023](https://arxiv.org/abs/2305.18290) |
+| **Modern Unified & Reference-Free Optimization (~2024–Present)** | *Concept:* Moves away from rigid pairwise dependencies. Frameworks like **KTO** optimize binary metrics (Thumbs Up/Down), while architectures like **ORPO** merge Supervised Fine-Tuning (SFT) and preference alignment into a single loss layer, removing the need for a separate reference network. | 2024 | [Hong et al., 2024](https://arxiv.org/abs/2403.07651) |
 
 ---
 
@@ -30,43 +27,31 @@ flowchart LR
 
 Preference algorithms adapt based on how feedback is formatted, curated, and scored by human annotators or automated AI evaluators.
 
-*   **Pairwise Preference Optimization**
-    *   *Mechanism:* Ingests a prompt paired with exactly two candidate responses: one explicitly tagged as *Chosen* ($y_w$) and one as *Rejected* ($y_l$).
-    *   *Application:* The default structure for traditional DPO and IPO, focusing purely on relative data ranking.
-*   **Binary Unpaired Optimization (KTO)**
-    *   *Mechanism:* Processes isolated, single data responses tagged independently as either *Desirable* or *Undesirable* based on utility metrics.
-    *   *Pros:* Highly scalable for real-world logs where data naturally arrives as single un-paired entries (e.g., user thumb-ups or abandoned chats).
-*   **Listwise & Multi-Turn Preference Optimization**
-    *   *Mechanism:* Evaluates a ranked list of multiple outputs ($y_1 > y_2 > y_3$) or optimizes conversational text threads across multi-turn chat sessions where late-stage errors carry heavy weight penalties.
+| Data Structure Variant | Details | Year | Paper Link |
+|---|---|---|---|
+| **Pairwise Preference Optimization** | *Mechanism:* Ingests a prompt paired with exactly two candidate responses: one explicitly tagged as *Chosen* ($y_w$) and one as *Rejected* ($y_l$).<br>*Application:* The default structure for traditional DPO and IPO, focusing purely on relative data ranking. | 2023 | [Rafailov et al., 2023](https://arxiv.org/abs/2305.18290) |
+| **Binary Unpaired Optimization (KTO)** | *Mechanism:* Processes isolated, single data responses tagged independently as either *Desirable* or *Undesirable* based on utility metrics.<br>*Pros:* Highly scalable for real-world logs where data naturally arrives as single un-paired entries (e.g., user thumb-ups or abandoned chats). | 2024 | [Ethayarajh et al., 2024](https://arxiv.org/abs/2402.01306) |
+| **Listwise & Multi-Turn Preference Optimization** | *Mechanism:* Evaluates a ranked list of multiple outputs ($y_1 > y_2 > y_3$) or optimizes conversational text threads across multi-turn chat sessions where late-stage errors carry heavy weight penalties. | 2023 | [Song et al., 2023](https://arxiv.org/abs/2306.17492) |
 
 ---
 
 ## 3. Core Algorithmic Frameworks
 
-*   **PPO (Proximal Policy Optimization)**
-    *   *Type:* Actor-Critic Reinforcement Learning.
-    *   *Mechanism:* Iteratively updates the LLM policy using an online reward signal while calculating a Kullback-Leibler (KL) divergence penalty against a frozen reference model to keep the model from degenerating into gibberish.
-*   **DPO (Direct Preference Optimization)**
-    *   *Type:* Implicit Reward Cross-Entropy.
-    *   *Mechanism:* Maximizes the log-likelihood of the chosen response over the rejected response by using the model's own token probabilities as log-odds indicators, backed by a static reference model.
-*   **IPO (Identity Preference Optimization)**
-    *   *Type:* Regularized Direct Optimization.
-    *   *Mechanism:* Appends an explicit root-mean-square regularizer to DPO to prevent the model from aggressively overfitting to chosen responses or dropping formatting variation too early.
-*   **KTO (Kahneman-Tversky Optimization)**
-    *   *Type:* Prospect Theory Behavioral Utility.
-    *   *Mechanism:* Models the loss function to replicate human psychological value biases (where losing utility hurts more than gaining an equivalent reward), letting models learn effectively from highly imbalanced, unpaired data pools.
-*   **ORPO (Odds Ratio Preference Optimization)**
-    *   *Type:* Monolithic SFT-Preference Hybrid.
-    *   *Mechanism:* Penalizes the model during standard supervised training by calculating the odds ratio of generating rejected tokens, entirely removing the computational need for an active reference model in VRAM.
+| Algorithmic Framework | Details | Year | Paper Link |
+|---|---|---|---|
+| **PPO (Proximal Policy Optimization)** | *Type:* Actor-Critic Reinforcement Learning.<br>*Mechanism:* Iteratively updates the LLM policy using an online reward signal while calculating a Kullback-Leibler (KL) divergence penalty against a frozen reference model to keep the model from degenerating into gibberish. | 2017 | [Schulman et al., 2017](https://arxiv.org/abs/1707.06347) |
+| **DPO (Direct Preference Optimization)** | *Type:* Implicit Reward Cross-Entropy.<br>*Mechanism:* Maximizes the log-likelihood of the chosen response over the rejected response by using the model's own token probabilities as log-odds indicators, backed by a static reference model. | 2023 | [Rafailov et al., 2023](https://arxiv.org/abs/2305.18290) |
+| **IPO (Identity Preference Optimization)** | *Type:* Regularized Direct Optimization.<br>*Mechanism:* Appends an explicit root-mean-square regularizer to DPO to prevent the model from aggressively overfitting to chosen responses or dropping formatting variation too early. | 2023 | [Azar et al., 2023](https://arxiv.org/abs/2310.12036) |
+| **KTO (Kahneman-Tversky Optimization)** | *Type:* Prospect Theory Behavioral Utility.<br>*Mechanism:* Models the loss function to replicate human psychological value biases (where losing utility hurts more than gaining an equivalent reward), letting models learn effectively from highly imbalanced, unpaired data pools. | 2024 | [Ethayarajh et al., 2024](https://arxiv.org/abs/2402.01306) |
+| **ORPO (Odds Ratio Preference Optimization)** | *Type:* Monolithic SFT-Preference Hybrid.<br>*Mechanism:* Penalizes the model during standard supervised training by calculating the odds ratio of generating rejected tokens, entirely removing the computational need for an active reference model in VRAM. | 2024 | [Hong et al., 2024](https://arxiv.org/abs/2403.07651) |
 
 ---
 
 ## 4. Production & Downstream Applications
 
-*   **Red-Teaming and Safety Guardrail Hardening**
-    *   *Application:* Intentionally prompts models with dangerous or illicit topics (e.g., weapon building or cyber-attacks), optimization-training the system to choose safe refusals over helpful but harmful output instructions.
-*   **Conversational Style and Persona Conditioning**
-    *   *Application:* Fine-tunes consumer chatbots to prefer short, highly structured markdown list responses over dense, unstructured text blocks, heavily reducing user processing friction.
-*   **Complex Reasoning & Code Verification (RLAIF)**
-    *   *Application:* Optimizes advanced coding and math systems using Reinforcement Learning from AI Feedback (RLAIF). Compiler errors or automated test unit executions generate preference signals to guide reasoning models toward structurally sound logic.
+| Application | Description | Year | Paper Link |
+|---|---|---|---|
+| **Red-Teaming and Safety Guardrail Hardening** | *Application:* Intentionally prompts models with dangerous or illicit topics (e.g., weapon building or cyber-attacks), optimization-training the system to choose safe refusals over helpful but harmful output instructions. | 2022 | [Bai et al., 2022](https://arxiv.org/abs/2212.08073) |
+| **Conversational Style and Persona Conditioning** | *Application:* Fine-tunes consumer chatbots to prefer short, highly structured markdown list responses over dense, unstructured text blocks, heavily reducing user processing friction. | 2022 | [Ouyang et al., 2022](https://arxiv.org/abs/2203.02155) |
+| **Complex Reasoning & Code Verification (RLAIF)** | *Application:* Optimizes advanced coding and math systems using Reinforcement Learning from AI Feedback (RLAIF). Compiler errors or automated test unit executions generate preference signals to guide reasoning models toward structurally sound logic. | 2023 | [Lee et al., 2023](https://arxiv.org/abs/2309.00267) |
 
