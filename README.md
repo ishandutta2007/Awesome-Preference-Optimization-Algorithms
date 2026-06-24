@@ -9,8 +9,11 @@ Preference Optimization Algorithms align Large Language Models (LLMs) with human
 
 The algorithmic progression of preference optimization reflects a transition from complex, multi-model reinforcement learning loops to simpler, direct loss formulations and stable non-referential objectives.
 
-[Reinforcement Learning (RLHF-PPO, 2019)] ----> [Direct Optimization (DPO, 2023)] ----> [Reference-Free / Token-Level (KTO/ORPO, 2024+)](Actor-Critic VRAM Bottleneck)               (Implicit Reward Math Shift)                (Single-Network Core Consolidation)
-
+```mermaid
+flowchart LR
+    A["Reinforcement Learning (RLHF-PPO, 2019)<br/>(Actor-Critic VRAM Bottleneck)"] ---> B["Direct Optimization (DPO, 2023)<br/>(Implicit Reward Math Shift)"] 
+    B ---> C["Reference-Free / Token-Level (KTO/ORPO, 2024+)<br/>(Single-Network Core Consolidation)"] 
+```
 
 *   **The Reinforcement Learning Foundation (RLHF-PPO, ~2019–2023)**
     *   *Concept:* Popularized by OpenAI (InstructGPT/GPT-4). Relies on training an explicit secondary Reward Model on human preferences, followed by optimizing the base LLM policy using Proximal Policy Optimization (PPO).
