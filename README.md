@@ -64,3 +64,14 @@ Preference algorithms adapt based on how feedback is formatted, curated, and sco
 | [**Conversational Style and Persona Conditioning**](pages/conversational_style.md) | *Application:* Fine-tunes consumer chatbots to prefer short, highly structured markdown list responses over dense, unstructured text blocks, heavily reducing user processing friction. | 2022 | [Ouyang et al., 2022](https://arxiv.org/abs/2203.02155) |
 | [**Complex Reasoning & Code Verification (RLAIF)**](pages/complex_reasoning.md) | *Application:* Optimizes advanced coding and math systems using Reinforcement Learning from AI Feedback (RLAIF). Compiler errors or automated test unit executions generate preference signals to guide reasoning models toward structurally sound logic. | 2023 | [Lee et al., 2023](https://arxiv.org/abs/2309.00267) |
 
+
+## 🌟 Star History
+<div align="center">
+<a href="https://www.star-history.com/?repos=ishandutta2007/Awesome-Preference-Optimization-Algorithms&type=date&legend=bottom-right">
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Preference-Optimization-Algorithms&type=date&theme=dark&legend=bottom-right" />
+<source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Preference-Optimization-Algorithms&type=date&legend=bottom-right" />
+<img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Preference-Optimization-Algorithms&type=date&legend=bottom-right" />
+</picture>
+</a>
+</div>
